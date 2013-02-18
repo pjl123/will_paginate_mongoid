@@ -9,7 +9,7 @@ module WillPaginateMongoid
         options = base_options options
 
         WillPaginate::Collection.create(options[:page], options[:per_page]) do |pager|
-          if options[:conditions]
+          if options[:conditions].nil?
             fill_pager_with self.order_by([options[:order], :desc]).skip(options[:offset]).limit(options[:per_page]), self.count, pager
           else
             fill_pager_with self.where(options[:conditions]).order_by([options[:order], :desc]).skip(options[:offset]).limit(options[:per_page]), self.count, pager
